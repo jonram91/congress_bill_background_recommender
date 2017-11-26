@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <center>
+
+  <body bgcolor="9fcc3e">
+		<h1> Pyper Papyr </h1>
+    <br>
+    <p> <h3> Enter bill description here: </h3> </p>
+
+        <br>
+
+        <textarea name="text" rows="15" cols="100" wrap="soft" id = 'article'> </textarea>
+
+        <br>
+
+    <button id="button" onclick="postData()">Submit</button>
+    <br>
+    <p> What briefs should I read?<h3> <div id="output1"></div></h3></p>
+
+    <p> <div id="output2"></div></h3></p>
+
+    <p> <div id="output3"></div></h3></p>
+
+    <p> <div id="output4"></div></h3></p>
+
+    <p> <div id="output5"></div></h3></p>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">		 </script>
+
+    <br>
+
+    <script>
+
+function postData(){
+
+
+	var article = document.getElementById("article").value;
+
+	console.log("text: " + article)
+
+	$.ajax({
+         type: "POST",
+         contentType: "application/json; charset=utf-8",
+         url: "/recommend",
+         dataType: "json",
+         async: true,
+         data: JSON.stringify({'article': article}),
+         success: function (data) {
+
+					 var articles = data["recommendations"];
+
+
+				 	 document.getElementById("output1").textContent = articles[0];
+				 	 document.getElementById("output2").textContent = articles[1];
+				 	 document.getElementById("output3").textContent = articles[2];
+				 	 document.getElementById("output4").textContent = articles[3];
+				 	 document.getElementById("output5").textContent = articles[4];
+
+
+
+         },
+         error: function (result) {
+         }
+       })
+     }
+
+
+
+      </script>
+    </body>
+  </center>
+</html>
